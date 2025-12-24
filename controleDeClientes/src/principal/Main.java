@@ -4,6 +4,7 @@ import entidades.Cliente;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class Main {
@@ -13,12 +14,26 @@ public class Main {
         System.out.println("Entre com os dados para cadastrar um cliente:");
 
         Cliente cliente = new Cliente();
-        cliente.setId(UUID.randomUUID());
-        cliente.setNome("Sérgio Mendes");
-        cliente.setEmail("sergio@gmail.com");
-        cliente.setTelefone("(21) 96957-5900");
-        cliente.setCpf("123.456.789-00");
-        cliente.setDataHoraCadastro(LocalDateTime.now());
+
+        try (Scanner scanner = new Scanner(System.in)){
+            cliente.setId(UUID.randomUUID());
+
+            System.out.print("Nome............: ");
+            cliente.setNome(scanner.nextLine());
+
+            System.out.print("E-mail..........: ");
+            cliente.setEmail(scanner.nextLine());
+
+            System.out.print("Telefone........: ");
+            cliente.setTelefone(scanner.nextLine());
+
+            System.out.print("Cpf.............: ");
+            cliente.setCpf(scanner.nextLine());
+
+            cliente.setDataHoraCadastro(LocalDateTime.now());
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
 
         System.out.println("\nCLIENTE:");
         System.out.println("ID......................: " + cliente.getId());
