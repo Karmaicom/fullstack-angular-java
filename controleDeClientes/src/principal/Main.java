@@ -1,6 +1,7 @@
 package principal;
 
 import entidades.Cliente;
+import repositorios.ClienteRepositorio;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,6 +35,9 @@ public class Main {
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
+
+        ClienteRepositorio repo = new ClienteRepositorio();
+        repo.exportar(cliente);
 
         System.out.println("\nCLIENTE:");
         System.out.println("ID......................: " + cliente.getId());
