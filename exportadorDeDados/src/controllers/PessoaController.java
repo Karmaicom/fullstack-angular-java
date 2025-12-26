@@ -2,6 +2,8 @@ package controllers;
 
 import entities.PessoaFisica;
 import entities.PessoaJuridica;
+import services.PessoaService;
+import services.PessoaServiceImpl;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -13,6 +15,7 @@ public class PessoaController implements Serializable {
 
     // Atributos
     private Scanner scanner = new Scanner(System.in);
+    private PessoaService pessoaService;
 
     /**
      * Metodo para exportar dados de pessoa física
@@ -24,20 +27,23 @@ public class PessoaController implements Serializable {
         // gerando id
         pessoaFisica.setId(UUID.randomUUID());
 
-        System.out.println("Nome..............:");
+        System.out.print("Nome..............: ");
         pessoaFisica.setNome(scanner.nextLine());
 
-        System.out.println("Email.............:");
+        System.out.print("Email.............: ");
         pessoaFisica.setEmail(scanner.nextLine());
 
-        System.out.println("Telefone..........:");
+        System.out.print("Telefone..........: ");
         pessoaFisica.setTelefone(scanner.nextLine());
 
-        System.out.println("Cpf...............:");
+        System.out.print("Cpf...............: ");
         pessoaFisica.setCpf(scanner.nextLine());
 
-        System.out.println("Data nascimento...:");
+        System.out.print("Data nascimento...: ");
         pessoaFisica.setDataNascimento(new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine()));
+
+        pessoaService = new PessoaServiceImpl();
+        pessoaService.salvarPessoaFisica(pessoaFisica);
     }
 
     /**
@@ -50,18 +56,19 @@ public class PessoaController implements Serializable {
         // gerando id
         pessoaJuridica.setId(UUID.randomUUID());
 
-        System.out.println("Nome..............:");
+        System.out.print("Nome..............: ");
         pessoaJuridica.setNome(scanner.nextLine());
 
-        System.out.println("Email.............:");
+        System.out.print("Email.............: ");
         pessoaJuridica.setEmail(scanner.nextLine());
 
-        System.out.println("Telefone..........:");
+        System.out.print("Telefone..........: ");
         pessoaJuridica.setTelefone(scanner.nextLine());
 
-        System.out.println("Cnpj..............:");
+        System.out.print("Cnpj..............: ");
         pessoaJuridica.setCnpj(scanner.nextLine());
+
+        pessoaService = new PessoaServiceImpl();
+        pessoaService.salvarPessoaJuridica(pessoaJuridica);
     }
-
-
 }
