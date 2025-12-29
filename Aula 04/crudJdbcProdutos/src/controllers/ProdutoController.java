@@ -23,13 +23,13 @@ public class ProdutoController {
 
         var produto = new Produto(); // criando objeto
 
-        System.out.print("Nome do produto................: ");
+        System.out.print("Nome do produto...........: ");
         produto.setNome(scanner.nextLine());
 
-        System.out.print("Preço........................: ");
+        System.out.print("Preço.....................: ");
         produto.setPreco(scanner.nextDouble());
 
-        System.out.print("Quantidade...................: ");
+        System.out.print("Quantidade................: ");
         produto.setQuantidade(scanner.nextInt());
 
         var repo = new ProdutoRepository();
