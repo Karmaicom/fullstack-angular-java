@@ -38,4 +38,14 @@ public class Produto {
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
+
+    @Override
+    public String toString() {
+        return "Produto { " +
+                "id = " + id +
+                ", nome = '" + nome + '\'' +
+                ", preco = " + preco +
+                ", quantidade = " + quantidade +
+                " }";
+    }
 }
