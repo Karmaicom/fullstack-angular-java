@@ -4,6 +4,10 @@ import entities.Cliente;
 import entities.ItemPedido;
 import entities.Pedido;
 import enums.StatusPedido;
+import interfaces.PedidoService;
+import org.w3c.dom.ls.LSOutput;
+import services.PedidoServiceXmlImpl;
+import services.PedidosServiceJsonImpl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,6 +79,33 @@ public class PedidoController {
 
         // Criando um objeto do tipo Pedido usando o construtor com entrada de argumentos
         var pedido = new Pedido(UUID.randomUUID(), new Date(), valorTotalPedido, itensPedido, StatusPedido.Processando);
+
+        try {
+            System.out.println("(1) Exportar para XML");
+            System.out.println("(2) Exportar para Json");
+            var opcao = Integer.parseInt(scanner.nextLine());
+
+            PedidoService service = null;
+
+            switch (opcao) {
+                case 1:
+                    service = new PedidoServiceXmlImpl();
+                    break;
+                case 2:
+                    service = new PedidosServiceJsonImpl();
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+            if (service != null) {
+                service.exportarPedido(pedido);
+                System.out.println("\nPedido exportado com sucesso!\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
     }
 
 }
