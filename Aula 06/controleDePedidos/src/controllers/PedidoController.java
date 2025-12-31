@@ -5,7 +5,6 @@ import entities.ItemPedido;
 import entities.Pedido;
 import enums.StatusPedido;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -62,14 +61,20 @@ public class PedidoController {
 
         // Calculando o valor toral do pedido
         // Somar o preco unitario * quantidade de cada item do pedido
+
+        /* Forma antiga de fazer
         var valorTotalPedido = 0.0;
         for (var item : itensPedido) {
             valorTotalPedido  += item.getPrecoUnitario() * item.getQuantidade();
         }
+        */
+
+        /* Forma atual de fazer, usando a funcao stream */
+        var valorTotalPedido = itensPedido.stream()
+                .mapToDouble(item -> item.getPrecoUnitario() * item.getQuantidade()).sum();
 
         // Criando um objeto do tipo Pedido usando o construtor com entrada de argumentos
         var pedido = new Pedido(UUID.randomUUID(), new Date(), valorTotalPedido, itensPedido, StatusPedido.Processando);
-
     }
 
 }
