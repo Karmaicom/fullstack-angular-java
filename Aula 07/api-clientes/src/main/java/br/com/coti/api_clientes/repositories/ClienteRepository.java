@@ -89,10 +89,10 @@ public class ClienteRepository {
      * @param cliente
      * @throws Exception
      */
-    public void atualizar(Cliente cliente) throws Exception {
+    public boolean atualizar(Cliente cliente) throws Exception {
         // consulta que sera executada no bando de dados
         var sql = """
-                    update cliente set nome = ? , email = ?, cpf = ?)
+                    update clientes set nome = ? , email = ?, cpf = ?
                     where id = ?
                 """;
 
@@ -107,22 +107,24 @@ public class ClienteRepository {
         statement.setObject(4, cliente.getId());
 
         // executando comando sql para atualizar os dados do cliente
-        statement.executeUpdate();
+        var rowsAffected = statement.executeUpdate();
 
         // fechando conexão com o banco de dados
         connection.close();
+
+        return rowsAffected == 1;
     }
 
     /**
      * Metodo para excluir um cliente
      * do banco de dados
-     * @param cliente
+     * @param id
      * @throws Exception
      */
-    public void delete(Cliente cliente) throws Exception {
+    public boolean delete(UUID id) throws Exception {
         // consulta que sera executada no bando de dados
         var sql = """
-                    delete from cliente where id = ?
+                    delete from clientes where id = ?
                 """;
 
         // Abrindo conexao com o banco de dados
@@ -130,12 +132,14 @@ public class ClienteRepository {
 
         // preparando comando sql com os dados recebidos como parâmetro
         var statement = connection.prepareStatement(sql);
-        statement.setObject(1, cliente.getId());
+        statement.setObject(1, id);
 
         // executando comando sql para atualizar os dados do cliente
-        statement.execute();
+        var rowsAffected = statement.executeUpdate();
 
         // fechando conexão com o banco de dados
         connection.close();
+
+        return rowsAffected == 1;
     }
 }
