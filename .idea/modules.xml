@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Aula 01/Aula 01.iml" filepath="$PROJECT_DIR$/Aula 01/Aula 01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Aula 02/Aula 02.iml" filepath="$PROJECT_DIR$/Aula 02/Aula 02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Aula 03/Aula 03.iml" filepath="$PROJECT_DIR$/Aula 03/Aula 03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/fullstack-angular-java.iml" filepath="$PROJECT_DIR$/.idea/fullstack-angular-java.iml" />
+    </modules>
+  </component>
+</project>
