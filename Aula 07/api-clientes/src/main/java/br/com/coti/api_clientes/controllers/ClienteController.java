@@ -52,32 +52,51 @@ public class ClienteController {
     /**
      * Endpoint para deletar um cliente
      * do banco de dados
-     * @param cliente
+     * @param id
      */
-    @DeleteMapping
-    public void delete(Cliente cliente) {
+    @DeleteMapping("{id}")
+    public String delete(@PathVariable UUID id) {
         try {
             var repo = new ClienteRepository();
-            repo.delete(cliente);
-            System.out.println("Cliente " + cliente.getNome() + " excluído com sucesso!");
+            var rowsAffected = repo.delete(id);
+
+            if (rowsAffected) {
+                return "Cliente excluído com sucesso!";
+            } else {
+                return "Nenhum dado foi excluído";
+            }
+
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            return "Error: " + e.getMessage();
         }
     }
 
     /**
      * Endpoint para atualizar um cliente
      * do bando de dados
-     * @param cliente
+     * @param request
+     * @return Mensagem de texto
      */
-    @PutMapping
-    public void put(Cliente cliente) {
+    @PutMapping("{id}")
+    public String put(@PathVariable UUID id, @RequestBody ClienteRequest request) {
         try {
+            var cliente = new Cliente();
+            cliente.setId(id);
+            cliente.setNome(request.nome());
+            cliente.setEmail(request.email());
+            cliente.setCpf(request.cpf());
+
             var repo = new ClienteRepository();
-            repo.atualizar(cliente);
-            System.out.println("Cliente " + cliente.getNome() + " atualizado com sucesso!");
+            var rowsAffected = repo.atualizar(cliente);
+
+            if (rowsAffected) {
+                return "Cliente " + cliente.getNome() + " atualizado com sucesso!";
+            } else {
+                return "Não foi possível atualizar";
+            }
+
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            return "Error: " + e.getMessage();
         }
     }
 }

@@ -17,3 +17,8 @@ values
 
 -- Consultando os clientes cadastrados
 select id, nome, email, cpf from clientes;
+
+-- transformar o campo email como unico na tabela
+alter table clientes
+add constraint email_unique
+unique(email);
