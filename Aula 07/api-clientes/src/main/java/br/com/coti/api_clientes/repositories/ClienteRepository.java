@@ -13,8 +13,10 @@ public class ClienteRepository {
     private ConnectionFactory factory = new ConnectionFactory();
 
     /**
-     * Metodo para consultar todos os clientes cadastrados
-     * e retornar uma lista destes clientes
+     *  Metodo para consultar todos os clientes cadastrados
+     *  e retornar uma lista destes clientes
+     * @return Lista de clientes
+     * @throws Exception
      */
     public List<Cliente> consultar() throws Exception {
 
@@ -51,4 +53,89 @@ public class ClienteRepository {
         return clientes;
     }
 
+    /**
+     * Metodo para cadastrar um cliente
+     * no banco de dados
+     * @param cliente
+     * @throws Exception
+     */
+    public void inserir(Cliente cliente) throws Exception {
+        // consulta que sera executada no bando de dados
+        var sql = """
+                    insert into clientes(id, nome, email, cpf)
+                    values(?, ?, ?, ?)
+                """;
+
+        // Abrindo conexão com o banco de dados
+        var connection = factory.getConnection();
+
+        // preparando comando sql com os dados recebidos como parâmetro
+        var statement = connection.prepareStatement(sql);
+        statement.setObject(1, cliente.getId());
+        statement.setString(2, cliente.getNome());
+        statement.setString(3, cliente.getEmail());
+        statement.setString(4, cliente.getCpf());
+
+        // executando o comando sql
+        statement.execute();
+
+        // fechando a conexao com o bando de dados
+        connection.close();
+    }
+
+    /**
+     * Metodo para atualizar os dados do cliente
+     * no banco de dados
+     * @param cliente
+     * @throws Exception
+     */
+    public void atualizar(Cliente cliente) throws Exception {
+        // consulta que sera executada no bando de dados
+        var sql = """
+                    update cliente set nome = ? , email = ?, cpf = ?)
+                    where id = ?
+                """;
+
+        // Abrindo conexao com o banco de dados
+        var connection = factory.getConnection();
+
+        // preparando comando sql com os dados recebidos como parâmetro
+        var statement = connection.prepareStatement(sql);
+        statement.setString(1, cliente.getNome());
+        statement.setString(2, cliente.getEmail());
+        statement.setString(3, cliente.getCpf());
+        statement.setObject(4, cliente.getId());
+
+        // executando comando sql para atualizar os dados do cliente
+        statement.executeUpdate();
+
+        // fechando conexão com o banco de dados
+        connection.close();
+    }
+
+    /**
+     * Metodo para excluir um cliente
+     * do banco de dados
+     * @param cliente
+     * @throws Exception
+     */
+    public void delete(Cliente cliente) throws Exception {
+        // consulta que sera executada no bando de dados
+        var sql = """
+                    delete from cliente where id = ?
+                """;
+
+        // Abrindo conexao com o banco de dados
+        var connection = factory.getConnection();
+
+        // preparando comando sql com os dados recebidos como parâmetro
+        var statement = connection.prepareStatement(sql);
+        statement.setObject(1, cliente.getId());
+
+        // executando comando sql para atualizar os dados do cliente
+        statement.execute();
+
+        // fechando conexão com o banco de dados
+        connection.close();
+    }
 }
